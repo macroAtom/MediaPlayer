@@ -14,23 +14,18 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Button start,pause,forward;
-
     private double startTime = 0;
     private double finalTime = 0;
-
 //    private Handler myHandler = new Handler();
     private int forwardTime = 5000;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         start=(Button)findViewById(R.id.play_button);
         pause=(Button)findViewById(R.id.pause_button);
         forward=(Button)findViewById(R.id.forward_button);
-
 
         //creating media player
 //        final MediaPlayer mp=new MediaPlayer();
@@ -48,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mp.start();
-
                 finalTime = mp.getDuration();
                 startTime = mp.getCurrentPosition();
 
@@ -84,5 +78,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//                当音频播放完成时调用
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+//                mp.release();
+//                mp = null;
+                Toast.makeText(MainActivity.this,"I'm done!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }
